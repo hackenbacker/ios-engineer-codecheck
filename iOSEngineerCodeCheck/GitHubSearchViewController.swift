@@ -10,7 +10,7 @@ import UIKit
 
 class GitHubSearchViewController: UITableViewController, UISearchBarDelegate {
 
-    @IBOutlet weak var SchBr: UISearchBar!
+    @IBOutlet weak var querySearchBar: UISearchBar!
 
     var repo: [[String: Any]] = []
 
@@ -22,8 +22,8 @@ class GitHubSearchViewController: UITableViewController, UISearchBarDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        SchBr.text = "GitHubのリポジトリを検索できるよー"
-        SchBr.delegate = self
+        querySearchBar.text = "GitHubのリポジトリを検索できるよー"
+        querySearchBar.delegate = self
     }
 
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
