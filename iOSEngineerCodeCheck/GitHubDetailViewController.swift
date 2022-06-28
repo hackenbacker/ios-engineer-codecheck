@@ -33,7 +33,7 @@ final class GitHubDetailViewController: UIViewController {
         getImage()
     }
 
-    func getImage() {
+    private func getImage() {
 
         let repo = vc1.repositoryList[vc1.selectedIndex]
 
