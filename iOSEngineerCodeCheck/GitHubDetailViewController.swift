@@ -32,13 +32,13 @@ final class GitHubDetailViewController: UIViewController {
         watchersCountLabel.text = "\(repository["wachers_count"]       as? Int ?? 0) watchers"
         forksCountLabel.text    = "\(repository["forks_count"]         as? Int ?? 0) forks"
         issuesCountLabel.text   = "\(repository["open_issues_count"]   as? Int ?? 0) open issues"
-        getImage()
+        getAvatarImage()
     }
 
     /// アバター画像を取得する.
     /// 取得したアバター画像を表示する.
     /// フルネームを表示する.
-    private func getImage() {
+    private func getAvatarImage() {
 
         let repository = searchViewController.repositoryList[searchViewController.selectedIndex]
 
