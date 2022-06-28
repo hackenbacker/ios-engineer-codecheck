@@ -57,8 +57,8 @@ final class GitHubSearchViewController: UITableViewController, UISearchBarDelega
         let searchUrl = URL(string: urlString)!
 
         task = URLSession.shared.dataTask(with: searchUrl) { (data, response, error) in
-            guard let obj = try! JSONSerialization.jsonObject(with: data!) as? [String: Any],
-                  let items = obj["items"] as? [[String: Any]] else {
+            guard let object = try! JSONSerialization.jsonObject(with: data!) as? [String: Any],
+                  let items = object["items"] as? [[String: Any]] else {
                 return
             }
 
