@@ -41,9 +41,9 @@ final class GitHubSearchViewController: UITableViewController, UISearchBarDelega
         }
 
         let urlString = "https://api.github.com/search/repositories?q=\(query)"
-        let url = URL(string: urlString)!
+        let searchUrl = URL(string: urlString)!
 
-        task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+        task = URLSession.shared.dataTask(with: searchUrl) { (data, response, error) in
             guard let obj = try! JSONSerialization.jsonObject(with: data!) as? [String: Any],
                   let items = obj["items"] as? [[String: Any]] else {
                 return
@@ -73,10 +73,10 @@ final class GitHubSearchViewController: UITableViewController, UISearchBarDelega
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         let cell = UITableViewCell()
-        let rp   = repositoryList[indexPath.row]
+        let repository = repositoryList[indexPath.row]
 
-        cell.textLabel?.text       = rp["full_name"] as? String ?? ""
-        cell.detailTextLabel?.text = rp["language"]  as? String ?? ""
+        cell.textLabel?.text       = repository["full_name"] as? String ?? ""
+        cell.detailTextLabel?.text = repository["language"]  as? String ?? ""
 
         cell.tag = indexPath.row
 
