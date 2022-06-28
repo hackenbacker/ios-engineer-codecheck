@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  GitHubSearchViewController.swift
 //  iOSEngineerCodeCheck
 //
 //  Created by 史 翔新 on 2020/04/20.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UITableViewController, UISearchBarDelegate {
+class GitHubSearchViewController: UITableViewController, UISearchBarDelegate {
 
     @IBOutlet weak var SchBr: UISearchBar!
 
@@ -60,7 +60,7 @@ class ViewController: UITableViewController, UISearchBarDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 
         if segue.identifier == "Detail" {
-            let dtl = segue.destination as! ViewController2
+            let dtl = segue.destination as! GitHubDetailViewController
             dtl.vc1 = self
         }
     }

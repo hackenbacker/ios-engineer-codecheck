@@ -1,5 +1,5 @@
 //
-//  ViewController2.swift
+//  GitHubDetailViewController.swift
 //  iOSEngineerCodeCheck
 //
 //  Created by 史 翔新 on 2020/04/21.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController2: UIViewController {
+class GitHubDetailViewController: UIViewController {
 
     @IBOutlet weak var ImgView: UIImageView!
     @IBOutlet weak var TtlLbl:  UILabel!
@@ -18,7 +18,7 @@ class ViewController2: UIViewController {
     @IBOutlet weak var FrksLbl: UILabel!
     @IBOutlet weak var IsssLbl: UILabel!
 
-    var vc1: ViewController!
+    var vc1: GitHubSearchViewController!
 
     override func viewDidLoad() {
         super.viewDidLoad()
