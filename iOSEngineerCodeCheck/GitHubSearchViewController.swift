@@ -15,7 +15,7 @@ class GitHubSearchViewController: UITableViewController, UISearchBarDelegate {
     var repositoryList: [[String: Any]] = []
     var selectedIndex: Int!
 
-    var task: URLSessionTask?
+    private var task: URLSessionTask?
 
     override func viewDidLoad() {
         super.viewDidLoad()
