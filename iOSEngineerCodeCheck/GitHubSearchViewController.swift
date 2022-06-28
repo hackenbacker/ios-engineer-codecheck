@@ -60,8 +60,8 @@ final class GitHubSearchViewController: UITableViewController, UISearchBarDelega
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 
         if segue.identifier == "Detail" {
-            let dtl = segue.destination as! GitHubDetailViewController
-            dtl.vc1 = self
+            let detailViewController = segue.destination as! GitHubDetailViewController
+            detailViewController.searchViewController = self
         }
     }
 
