@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// 詳細画面を表示する view controller.
 final class GitHubDetailViewController: UIViewController {
 
     @IBOutlet weak var avatarImageView:    UIImageView!
@@ -18,6 +19,7 @@ final class GitHubDetailViewController: UIViewController {
     @IBOutlet weak var forksCountLabel:    UILabel!
     @IBOutlet weak var issuesCountLabel:   UILabel!
 
+    /// 検索結果を保持しているview controllerへの参照.
     var searchViewController: GitHubSearchViewController!
 
     override func viewDidLoad() {
@@ -33,6 +35,9 @@ final class GitHubDetailViewController: UIViewController {
         getImage()
     }
 
+    /// アバター画像を取得する.
+    /// 取得したアバター画像を表示する.
+    /// フルネームを表示する.
     private func getImage() {
 
         let repository = searchViewController.repositoryList[searchViewController.selectedIndex]

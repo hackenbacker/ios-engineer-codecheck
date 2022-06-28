@@ -8,25 +8,38 @@
 
 import UIKit
 
+/// 検索画面を表示する view controller.
 final class GitHubSearchViewController: UITableViewController, UISearchBarDelegate {
 
     @IBOutlet weak var querySearchBar: UISearchBar!
 
+    /// リポジトリ検索結果.
     var repositoryList: [[String: Any]] = []
+    /// 詳細を表示するリポジトリのindex.
     var selectedIndex: Int!
 
     private var task: URLSessionTask?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+
         querySearchBar.text = "GitHubのリポジトリを検索できるよー"
         querySearchBar.delegate = self
     }
 
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+
+        if segue.identifier == "Detail" {
+            // 詳細画面にデータを受け渡す
+            let detailViewController = segue.destination as! GitHubDetailViewController
+            detailViewController.searchViewController = self
+        }
+    }
+
+    // MARK: - UISearchBarDelegate
+    
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
-        // ↓こうすれば初期のテキストを消せる
-        searchBar.text = ""
+        searchBar.text = "" // 初期のテキストを消す
         return true
     }
 
@@ -54,17 +67,10 @@ final class GitHubSearchViewController: UITableViewController, UISearchBarDelega
                 self.tableView.reloadData()
             }
         }
-        // これ呼ばなきゃリストが更新されません
         task?.resume()
     }
 
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-
-        if segue.identifier == "Detail" {
-            let detailViewController = segue.destination as! GitHubDetailViewController
-            detailViewController.searchViewController = self
-        }
-    }
+    // MARK: - UITableViewDataSource
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return repositoryList.count
@@ -83,8 +89,10 @@ final class GitHubSearchViewController: UITableViewController, UISearchBarDelega
         return cell
     }
 
+    // MARK: - UITableViewDelegate
+
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // 画面遷移時に呼ばれる
+        // 選択された行を保存して詳細画面へ遷移する
         selectedIndex = indexPath.row
         performSegue(withIdentifier: "Detail", sender: self)
     }
