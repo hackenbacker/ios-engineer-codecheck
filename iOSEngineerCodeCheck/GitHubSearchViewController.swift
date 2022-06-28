@@ -44,13 +44,14 @@ final class GitHubSearchViewController: UITableViewController, UISearchBarDelega
         let url = URL(string: urlString)!
 
         task = URLSession.shared.dataTask(with: url) { (data, res, err) in
-            if let obj = try! JSONSerialization.jsonObject(with: data!) as? [String: Any] {
-                if let items = obj["items"] as? [[String: Any]] {
-                    self.repositoryList = items
-                    DispatchQueue.main.async {
-                        self.tableView.reloadData()
-                    }
-                }
+            guard let obj = try! JSONSerialization.jsonObject(with: data!) as? [String: Any],
+                  let items = obj["items"] as? [[String: Any]] else {
+                return
+            }
+
+            self.repositoryList = items
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
             }
         }
         // これ呼ばなきゃリストが更新されません
