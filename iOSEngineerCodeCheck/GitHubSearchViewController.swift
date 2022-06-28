@@ -43,7 +43,7 @@ final class GitHubSearchViewController: UITableViewController, UISearchBarDelega
         let urlString = "https://api.github.com/search/repositories?q=\(query)"
         let url = URL(string: urlString)!
 
-        task = URLSession.shared.dataTask(with: url) { (data, res, err) in
+        task = URLSession.shared.dataTask(with: url) { (data, response, error) in
             guard let obj = try! JSONSerialization.jsonObject(with: data!) as? [String: Any],
                   let items = obj["items"] as? [[String: Any]] else {
                 return

@@ -44,7 +44,7 @@ final class GitHubDetailViewController: UIViewController {
             return
         }
 
-        URLSession.shared.dataTask(with: URL(string: imageURL)!) { (data, res, err) in
+        URLSession.shared.dataTask(with: URL(string: imageURL)!) { (data, response, error) in
             let avatarImage = UIImage(data: data!)!
             DispatchQueue.main.async {
                 self.avatarImageView.image = avatarImage
