@@ -8,7 +8,7 @@
 
 import UIKit
 
-class GitHubSearchViewController: UITableViewController, UISearchBarDelegate {
+final class GitHubSearchViewController: UITableViewController, UISearchBarDelegate {
 
     @IBOutlet weak var querySearchBar: UISearchBar!
 

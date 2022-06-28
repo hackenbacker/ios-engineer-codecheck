@@ -8,7 +8,7 @@
 
 import UIKit
 
-class GitHubDetailViewController: UIViewController {
+final class GitHubDetailViewController: UIViewController {
 
     @IBOutlet weak var ImgView: UIImageView!
     @IBOutlet weak var TtlLbl:  UILabel!
