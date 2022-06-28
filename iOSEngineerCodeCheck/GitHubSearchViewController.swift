@@ -12,10 +12,10 @@ class GitHubSearchViewController: UITableViewController, UISearchBarDelegate {
 
     @IBOutlet weak var querySearchBar: UISearchBar!
 
-    var repo: [[String: Any]] = []
+    var repositoryList: [[String: Any]] = []
+    var selectedIndex: Int!
 
     var task: URLSessionTask?
-    var idx:  Int!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,7 +46,7 @@ class GitHubSearchViewController: UITableViewController, UISearchBarDelegate {
         task = URLSession.shared.dataTask(with: url) { (data, res, err) in
             if let obj = try! JSONSerialization.jsonObject(with: data!) as? [String: Any] {
                 if let items = obj["items"] as? [[String: Any]] {
-                    self.repo = items
+                    self.repositoryList = items
                     DispatchQueue.main.async {
                         self.tableView.reloadData()
                     }
@@ -66,13 +66,13 @@ class GitHubSearchViewController: UITableViewController, UISearchBarDelegate {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return repo.count
+        return repositoryList.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         let cell = UITableViewCell()
-        let rp   = repo[indexPath.row]
+        let rp   = repositoryList[indexPath.row]
 
         cell.textLabel?.text       = rp["full_name"] as? String ?? ""
         cell.detailTextLabel?.text = rp["language"]  as? String ?? ""
@@ -84,7 +84,7 @@ class GitHubSearchViewController: UITableViewController, UISearchBarDelegate {
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // 画面遷移時に呼ばれる
-        idx = indexPath.row
+        selectedIndex = indexPath.row
         performSegue(withIdentifier: "Detail", sender: self)
     }
 }
