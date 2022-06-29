@@ -57,14 +57,25 @@ final class GitHubDetailViewController: UIViewController {
         fullNameLabel.text = repository["full_name"] as? String
 
         guard let owner = repository["owner"] as? [String: Any],
-              let imageURL = owner["avatar_url"] as? String else {
+              let avatarUrl = owner["avatar_url"] as? String,
+              let imageUrl = URL(string: avatarUrl) else {
             return
         }
 
-        URLSession.shared.dataTask(with: URL(string: imageURL)!) { (data, response, error) in
-            let avatarImage = UIImage(data: data!)!
-            DispatchQueue.main.async {
-                self.avatarImageView.image = avatarImage
+        URLSession.shared.dataTask(with: imageUrl) { (data, response, error) in
+
+            let avatarImage: UIImage
+            let placeHolderImage = UIImage(systemName: "person.crop.circle.badge.questionmark")!
+
+            if let data = data, let image = UIImage(data: data) {
+                avatarImage = image
+            } else {
+                avatarImage = placeHolderImage
+            }
+
+            // NOTE: 前の画面に戻る操作をしたら、直ちにこのview controlerを解放したいので[weak self]を使用する.
+            DispatchQueue.main.async { [weak self] in
+                self?.avatarImageView.image = avatarImage
             }
         }
         .resume()
