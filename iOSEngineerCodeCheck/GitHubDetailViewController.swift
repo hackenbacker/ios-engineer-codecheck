@@ -29,7 +29,9 @@ final class GitHubDetailViewController: UIViewController {
             return
         }
 
-        let repository = searchViewController.repositoryList[selectedIndex]
+        guard let repository = searchViewController?.repositoryList[selectedIndex] else {
+            return
+        }
 
         languageLabel.text      = "Written in \(repository["language"] as? String ?? "")"
         starsCountLabel.text    = "\(repository["stargazers_count"]    as? Int ?? 0) stars"
@@ -48,7 +50,9 @@ final class GitHubDetailViewController: UIViewController {
             return
         }
 
-        let repository = searchViewController.repositoryList[selectedIndex]
+        guard let repository = searchViewController?.repositoryList[selectedIndex] else {
+            return
+        }
 
         fullNameLabel.text = repository["full_name"] as? String
 
