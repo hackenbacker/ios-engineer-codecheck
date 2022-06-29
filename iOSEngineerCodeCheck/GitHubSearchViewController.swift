@@ -54,17 +54,28 @@ final class GitHubSearchViewController: UITableViewController, UISearchBarDelega
         }
 
         let urlString = "https://api.github.com/search/repositories?q=\(query)"
-        let searchUrl = URL(string: urlString)!
+        guard let searchUrl = URL(string: urlString) else {
+            AlertUtil.show(GitHubAppError.invalidInput, from: self)
+            return
+        }
 
         task = URLSession.shared.dataTask(with: searchUrl) { (data, response, error) in
-            guard let object = try! JSONSerialization.jsonObject(with: data!) as? [String: Any],
-                  let items = object["items"] as? [[String: Any]] else {
-                return
-            }
+            do {
+                guard let data = data,
+                      let object = try JSONSerialization.jsonObject(with: data) as? [String: Any],
+                      let items = object["items"] as? [[String: Any]] else {
+                    throw GitHubAppError.communicationError
+                }
 
-            self.repositoryList = items
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
+                self.repositoryList = items
+
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            } catch let error {
+                DispatchQueue.main.async {
+                    AlertUtil.show(error, from: self)
+                }
             }
         }
         task?.resume()
