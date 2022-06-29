@@ -20,12 +20,12 @@ final class GitHubDetailViewController: UIViewController {
     @IBOutlet weak var issuesCountLabel:   UILabel!
 
     /// 検索結果を保持しているview controllerへの参照.
-    var searchViewController: GitHubSearchViewController!
+    var searchViewController: GitHubSearchViewController?
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        guard let selectedIndex = searchViewController.selectedIndex else {
+        guard let selectedIndex = searchViewController?.selectedIndex else {
             return
         }
 
@@ -44,7 +44,7 @@ final class GitHubDetailViewController: UIViewController {
     /// フルネームを表示する.
     private func getAvatarImage() {
 
-        guard let selectedIndex = searchViewController.selectedIndex else {
+        guard let selectedIndex = searchViewController?.selectedIndex else {
             return
         }
 
