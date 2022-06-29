@@ -25,7 +25,11 @@ final class GitHubDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let repository = searchViewController.repositoryList[searchViewController.selectedIndex]
+        guard let selectedIndex = searchViewController.selectedIndex else {
+            return
+        }
+
+        let repository = searchViewController.repositoryList[selectedIndex]
 
         languageLabel.text      = "Written in \(repository["language"] as? String ?? "")"
         starsCountLabel.text    = "\(repository["stargazers_count"]    as? Int ?? 0) stars"
@@ -40,7 +44,11 @@ final class GitHubDetailViewController: UIViewController {
     /// フルネームを表示する.
     private func getAvatarImage() {
 
-        let repository = searchViewController.repositoryList[searchViewController.selectedIndex]
+        guard let selectedIndex = searchViewController.selectedIndex else {
+            return
+        }
+
+        let repository = searchViewController.repositoryList[selectedIndex]
 
         fullNameLabel.text = repository["full_name"] as? String
 

@@ -16,7 +16,7 @@ final class GitHubSearchViewController: UITableViewController, UISearchBarDelega
     /// リポジトリ検索結果.
     var repositoryList: [[String: Any]] = []
     /// 詳細を表示するリポジトリのindex.
-    var selectedIndex: Int!
+    var selectedIndex: Int?
 
     private var task: URLSessionTask?
 
