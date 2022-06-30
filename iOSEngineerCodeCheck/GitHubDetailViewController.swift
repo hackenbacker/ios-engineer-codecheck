@@ -9,7 +9,7 @@
 import UIKit
 
 /// 詳細画面を表示する view controller.
-final class GitHubDetailViewController: UIViewController {
+final class GitHubDetailViewController: UIViewController, RepositoryListRecipient {
 
     @IBOutlet weak var avatarImageView:    UIImageView!
     @IBOutlet weak var fullNameLabel:      UILabel!
@@ -19,17 +19,13 @@ final class GitHubDetailViewController: UIViewController {
     @IBOutlet weak var forksCountLabel:    UILabel!
     @IBOutlet weak var issuesCountLabel:   UILabel!
 
-    /// 検索結果を保持しているview controllerへの参照.
-    var searchViewController: GitHubSearchViewController?
+    /// リポジトリ一覧を保持しているobject.
+    weak var repositoryListProvider: RepositoryListProvider?
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        guard let selectedIndex = searchViewController?.selectedIndex else {
-            return
-        }
-
-        guard let repository = searchViewController?.repositoryList[selectedIndex] else {
+        guard let repository = repositoryListProvider?.selectedRepository else {
             return
         }
 
@@ -50,11 +46,7 @@ final class GitHubDetailViewController: UIViewController {
     /// フルネームを表示する.
     private func getAvatarImage() {
 
-        guard let selectedIndex = searchViewController?.selectedIndex else {
-            return
-        }
-
-        guard let repository = searchViewController?.repositoryList[selectedIndex] else {
+        guard let repository = repositoryListProvider?.selectedRepository else {
             return
         }
 

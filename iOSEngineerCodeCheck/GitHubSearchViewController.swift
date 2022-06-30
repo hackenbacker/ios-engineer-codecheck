@@ -9,14 +9,14 @@
 import UIKit
 
 /// 検索画面を表示する view controller.
-final class GitHubSearchViewController: UITableViewController, UISearchBarDelegate {
+final class GitHubSearchViewController: UITableViewController, UISearchBarDelegate, RepositoryListProvider {
 
     @IBOutlet weak var querySearchBar: UISearchBar!
 
     /// リポジトリ検索結果.
-    var repositoryList: [[String: Any]] = []
-    /// 詳細を表示するリポジトリのindex.
-    var selectedIndex: Int?
+    private(set) var repositoryList: [[String: Any]] = []
+    /// 選択中のリポジトリ.
+    private(set) var selectedRepository: [String: Any]?
 
     private var task: URLSessionTask?
 
@@ -29,10 +29,8 @@ final class GitHubSearchViewController: UITableViewController, UISearchBarDelega
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 
-        if segue.identifier == "Detail" {
-            // 詳細画面にデータを受け渡す
-            let detailViewController = segue.destination as! GitHubDetailViewController
-            detailViewController.searchViewController = self
+        if let recipient = segue.destination as? RepositoryListRecipient {
+            recipient.repositoryListProvider = self
         }
     }
 
@@ -103,8 +101,8 @@ final class GitHubSearchViewController: UITableViewController, UISearchBarDelega
     // MARK: - UITableViewDelegate
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // 選択された行を保存して詳細画面へ遷移する
-        selectedIndex = indexPath.row
+        // 詳細画面へ遷移する
+        selectedRepository = repositoryList[indexPath.row]
         performSegue(withIdentifier: "Detail", sender: self)
     }
 }
