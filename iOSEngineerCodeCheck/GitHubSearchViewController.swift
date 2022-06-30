@@ -23,7 +23,9 @@ final class GitHubSearchViewController: UITableViewController, UISearchBarDelega
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        querySearchBar.text = "GitHubのリポジトリを検索できるよー"
+        navigationItem.title = "リポジトリ検索"
+
+        querySearchBar.placeholder = "GitHub-検索文字列を入力"
         querySearchBar.delegate = self
     }
 
@@ -36,11 +38,6 @@ final class GitHubSearchViewController: UITableViewController, UISearchBarDelega
 
     // MARK: - UISearchBarDelegate
     
-    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
-        searchBar.text = "" // 初期のテキストを消す
-        return true
-    }
-
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         task?.cancel()
     }
@@ -87,7 +84,8 @@ final class GitHubSearchViewController: UITableViewController, UISearchBarDelega
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        let cell = UITableViewCell()
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Repository", for: indexPath)
+
         let repository = repositoryList[indexPath.row]
 
         cell.textLabel?.text       = repository["full_name"] as? String ?? ""
