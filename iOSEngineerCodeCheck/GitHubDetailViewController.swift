@@ -65,12 +65,13 @@ final class GitHubDetailViewController: UIViewController {
         URLSession.shared.dataTask(with: imageUrl) { (data, response, error) in
 
             let avatarImage: UIImage
-            let placeHolderImage = UIImage(systemName: "person.crop.circle.badge.questionmark")!
+            let placeholderImage = UIImage(systemName: "person.crop.circle.badge.questionmark")!
+                                    .withTintColor(.systemGray5, renderingMode: .alwaysOriginal)
 
             if let data = data, let image = UIImage(data: data) {
                 avatarImage = image
             } else {
-                avatarImage = placeHolderImage
+                avatarImage = placeholderImage
             }
 
             // NOTE: 前の画面に戻る操作をしたら、直ちにこのview controlerを解放したいので[weak self]を使用する.
