@@ -33,7 +33,7 @@ final class GitHubDetailViewController: UIViewController, RepositoryListRecipien
             languageLabel.text = ""
         }
         starsCountLabel.text    = "\(repository?["stargazers_count"]  as? Int ?? 0) stars"
-        watchersCountLabel.text = "\(repository?["wachers_count"]     as? Int ?? 0) watchers"
+        watchersCountLabel.text = "\(repository?["watchers_count"]    as? Int ?? 0) watchers"
         forksCountLabel.text    = "\(repository?["forks_count"]       as? Int ?? 0) forks"
         issuesCountLabel.text   = "\(repository?["open_issues_count"] as? Int ?? 0) open issues"
         getAvatarImage()
