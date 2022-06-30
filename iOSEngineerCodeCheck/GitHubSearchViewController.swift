@@ -23,7 +23,7 @@ final class GitHubSearchViewController: UITableViewController, UISearchBarDelega
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        querySearchBar.text = "GitHubのリポジトリを検索できるよー"
+        querySearchBar.placeholder = "GitHubのリポジトリを検索できるよー"
         querySearchBar.delegate = self
     }
 
@@ -36,11 +36,6 @@ final class GitHubSearchViewController: UITableViewController, UISearchBarDelega
 
     // MARK: - UISearchBarDelegate
     
-    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
-        searchBar.text = "" // 初期のテキストを消す
-        return true
-    }
-
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         task?.cancel()
     }
