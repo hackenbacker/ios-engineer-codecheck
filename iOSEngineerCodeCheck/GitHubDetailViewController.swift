@@ -25,19 +25,17 @@ final class GitHubDetailViewController: UIViewController, RepositoryListRecipien
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        guard let repository = repositoryListProvider?.selectedRepository else {
-            return
-        }
+        let repository = repositoryListProvider?.selectedRepository
 
-        if let language = repository["language"] as? String {
+        if let language = repository?["language"] as? String {
             languageLabel.text = "Written in \(language)"
         } else {
             languageLabel.text = ""
         }
-        starsCountLabel.text    = "\(repository["stargazers_count"]    as? Int ?? 0) stars"
-        watchersCountLabel.text = "\(repository["wachers_count"]       as? Int ?? 0) watchers"
-        forksCountLabel.text    = "\(repository["forks_count"]         as? Int ?? 0) forks"
-        issuesCountLabel.text   = "\(repository["open_issues_count"]   as? Int ?? 0) open issues"
+        starsCountLabel.text    = "\(repository?["stargazers_count"]  as? Int ?? 0) stars"
+        watchersCountLabel.text = "\(repository?["wachers_count"]     as? Int ?? 0) watchers"
+        forksCountLabel.text    = "\(repository?["forks_count"]       as? Int ?? 0) forks"
+        issuesCountLabel.text   = "\(repository?["open_issues_count"] as? Int ?? 0) open issues"
         getAvatarImage()
     }
 
@@ -46,16 +44,14 @@ final class GitHubDetailViewController: UIViewController, RepositoryListRecipien
     /// フルネームを表示する.
     private func getAvatarImage() {
 
-        guard let repository = repositoryListProvider?.selectedRepository else {
-            return
-        }
+        let repository = repositoryListProvider?.selectedRepository
 
-        fullNameLabel.text = repository["full_name"] as? String ?? ""
+        fullNameLabel.text = repository?["full_name"] as? String ?? ""
 
         let placeholderImage = UIImage(systemName: "person.crop.circle.badge.questionmark")!
                                 .withTintColor(.systemGray5, renderingMode: .alwaysOriginal)
 
-        guard let owner = repository["owner"] as? [String: Any],
+        guard let owner = repository?["owner"] as? [String: Any],
               let avatarUrl = owner["avatar_url"] as? String,
               let imageUrl = URL(string: avatarUrl) else {
             avatarImageView.image = placeholderImage
