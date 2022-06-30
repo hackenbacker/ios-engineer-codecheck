@@ -23,7 +23,9 @@ final class GitHubSearchViewController: UITableViewController, UISearchBarDelega
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        querySearchBar.placeholder = "GitHubのリポジトリを検索できるよー"
+        navigationItem.title = "リポジトリ検索"
+
+        querySearchBar.placeholder = "GitHub-検索文字列を入力"
         querySearchBar.delegate = self
     }
 
