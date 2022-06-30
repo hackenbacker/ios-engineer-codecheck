@@ -9,7 +9,7 @@
 import UIKit
 
 /// 詳細画面を表示する view controller.
-final class GitHubDetailViewController: UIViewController {
+final class GitHubDetailViewController: UIViewController, RepositoryListRecipient {
 
     @IBOutlet weak var avatarImageView:    UIImageView!
     @IBOutlet weak var fullNameLabel:      UILabel!
@@ -19,19 +19,23 @@ final class GitHubDetailViewController: UIViewController {
     @IBOutlet weak var forksCountLabel:    UILabel!
     @IBOutlet weak var issuesCountLabel:   UILabel!
 
-    /// 検索結果を保持しているview controllerへの参照.
-    var searchViewController: GitHubSearchViewController!
+    /// リポジトリ一覧を保持しているobject.
+    weak var repositoryListProvider: RepositoryListProvider?
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let repository = searchViewController.repositoryList[searchViewController.selectedIndex]
+        let repository = repositoryListProvider?.selectedRepository
 
-        languageLabel.text      = "Written in \(repository["language"] as? String ?? "")"
-        starsCountLabel.text    = "\(repository["stargazers_count"]    as? Int ?? 0) stars"
-        watchersCountLabel.text = "\(repository["wachers_count"]       as? Int ?? 0) watchers"
-        forksCountLabel.text    = "\(repository["forks_count"]         as? Int ?? 0) forks"
-        issuesCountLabel.text   = "\(repository["open_issues_count"]   as? Int ?? 0) open issues"
+        if let language = repository?["language"] as? String {
+            languageLabel.text = "Written in \(language)"
+        } else {
+            languageLabel.text = ""
+        }
+        starsCountLabel.text    = "\(repository?["stargazers_count"]  as? Int ?? 0) stars"
+        watchersCountLabel.text = "\(repository?["wachers_count"]     as? Int ?? 0) watchers"
+        forksCountLabel.text    = "\(repository?["forks_count"]       as? Int ?? 0) forks"
+        issuesCountLabel.text   = "\(repository?["open_issues_count"] as? Int ?? 0) open issues"
         getAvatarImage()
     }
 
@@ -40,19 +44,33 @@ final class GitHubDetailViewController: UIViewController {
     /// フルネームを表示する.
     private func getAvatarImage() {
 
-        let repository = searchViewController.repositoryList[searchViewController.selectedIndex]
+        let repository = repositoryListProvider?.selectedRepository
 
-        fullNameLabel.text = repository["full_name"] as? String
+        fullNameLabel.text = repository?["full_name"] as? String ?? ""
 
-        guard let owner = repository["owner"] as? [String: Any],
-              let imageURL = owner["avatar_url"] as? String else {
+        let placeholderImage = UIImage(systemName: "person.crop.circle.badge.questionmark")!
+                                .withTintColor(.systemGray5, renderingMode: .alwaysOriginal)
+
+        guard let owner = repository?["owner"] as? [String: Any],
+              let avatarUrl = owner["avatar_url"] as? String,
+              let imageUrl = URL(string: avatarUrl) else {
+            avatarImageView.image = placeholderImage
             return
         }
 
-        URLSession.shared.dataTask(with: URL(string: imageURL)!) { (data, response, error) in
-            let avatarImage = UIImage(data: data!)!
-            DispatchQueue.main.async {
-                self.avatarImageView.image = avatarImage
+        URLSession.shared.dataTask(with: imageUrl) { (data, response, error) in
+
+            let avatarImage: UIImage
+
+            if let data = data, let image = UIImage(data: data) {
+                avatarImage = image
+            } else {
+                avatarImage = placeholderImage
+            }
+
+            // NOTE: 前の画面に戻る操作をしたら、直ちにこのview controlerを解放したいので[weak self]を使用する.
+            DispatchQueue.main.async { [weak self] in
+                self?.avatarImageView.image = avatarImage
             }
         }
         .resume()
