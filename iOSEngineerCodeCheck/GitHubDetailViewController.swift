@@ -27,6 +27,8 @@ final class GitHubDetailViewController: UIViewController, RepositoryListRecipien
 
         let repository = repositoryListProvider?.selectedRepository
 
+        fullNameLabel.text = repository?["full_name"] as? String ?? ""
+
         if let language = repository?["language"] as? String {
             languageLabel.text = "Written in \(language)"
         } else {
@@ -36,17 +38,15 @@ final class GitHubDetailViewController: UIViewController, RepositoryListRecipien
         watchersCountLabel.text = "\(repository?["watchers_count"]    as? Int ?? 0) watchers"
         forksCountLabel.text    = "\(repository?["forks_count"]       as? Int ?? 0) forks"
         issuesCountLabel.text   = "\(repository?["open_issues_count"] as? Int ?? 0) open issues"
+
         getAvatarImage()
     }
 
     /// アバター画像を取得する.
     /// 取得したアバター画像を表示する.
-    /// フルネームを表示する.
     private func getAvatarImage() {
 
         let repository = repositoryListProvider?.selectedRepository
-
-        fullNameLabel.text = repository?["full_name"] as? String ?? ""
 
         let placeholderImage = UIImage(systemName: "person.crop.circle.badge.questionmark")!
                                 .withTintColor(.systemGray5, renderingMode: .alwaysOriginal)
