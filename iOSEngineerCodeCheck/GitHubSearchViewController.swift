@@ -91,8 +91,6 @@ final class GitHubSearchViewController: UITableViewController, UISearchBarDelega
         cell.textLabel?.text       = repository["full_name"] as? String ?? ""
         cell.detailTextLabel?.text = repository["language"]  as? String ?? ""
 
-        cell.tag = indexPath.row
-
         return cell
     }
 
