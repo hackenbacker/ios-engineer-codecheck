@@ -8,8 +8,8 @@
 
 import Foundation
 
-/// リポジトリ一覧を使用するObjectの定義.
-protocol GitHubItemsRecipient: AnyObject {
-    /// リポジトリ一覧を提供するObject.
-    var provider: GitHubItemsProvider? { get set }
+/// リポジトリ情報を使用するObjectの定義.
+protocol GitHubItemRecipient: AnyObject {
+    /// GitHub item (リポジトリ一情報 ).
+    var gitHubItem: GitHubItem? { get set }
 }

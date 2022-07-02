@@ -10,7 +10,7 @@ import UIKit
 import Combine
 
 /// 検索画面を表示する view controller.
-final class GitHubSearchViewController: UITableViewController, GitHubItemsProvider {
+final class GitHubSearchViewController: UITableViewController {
 
     @IBOutlet weak var querySearchBar: UISearchBar!
 
@@ -69,8 +69,8 @@ final class GitHubSearchViewController: UITableViewController, GitHubItemsProvid
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 
-        if let recipient = segue.destination as? GitHubItemsRecipient {
-            recipient.provider = self
+        if let recipient = segue.destination as? GitHubItemRecipient {
+            recipient.gitHubItem = selectedGitHubItem
         }
     }
 

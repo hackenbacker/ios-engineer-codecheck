@@ -10,7 +10,7 @@ import UIKit
 import Combine
 
 /// 詳細画面を表示する view controller.
-final class GitHubDetailViewController: UIViewController, GitHubItemsRecipient {
+final class GitHubDetailViewController: UIViewController, GitHubItemRecipient {
 
     @IBOutlet weak var avatarImageView:    UIImageView!
     @IBOutlet weak var fullNameLabel:      UILabel!
@@ -23,25 +23,23 @@ final class GitHubDetailViewController: UIViewController, GitHubItemsRecipient {
     private var viewModel = GitHubDetailViewModel()
     private var cancelables = Set<AnyCancellable>()
 
-    /// リポジトリ一覧を保持しているobject.
-    weak var provider: GitHubItemsProvider?
+    /// GitHub item (リポジトリ一情報 ).
+    var gitHubItem: GitHubItem?
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let item = provider?.selectedGitHubItem
+        fullNameLabel.text = gitHubItem?.fullName
 
-        fullNameLabel.text = item?.fullName
-
-        if let language = item?.language {
+        if let language = gitHubItem?.language {
             languageLabel.text = "Written in \(language)"
         } else {
             languageLabel.text = ""
         }
-        starsCountLabel.text    = "\(item?.stargazersCount ?? 0) stars"
-        watchersCountLabel.text = "\(item?.watchersCount ?? 0) watchers"
-        forksCountLabel.text    = "\(item?.forksCount ?? 0) forks"
-        issuesCountLabel.text   = "\(item?.openIssuesCount ?? 0) open issues"
+        starsCountLabel.text    = "\(gitHubItem?.stargazersCount ?? 0) stars"
+        watchersCountLabel.text = "\(gitHubItem?.watchersCount ?? 0) watchers"
+        forksCountLabel.text    = "\(gitHubItem?.forksCount ?? 0) forks"
+        issuesCountLabel.text   = "\(gitHubItem?.openIssuesCount ?? 0) open issues"
 
         // ViewModelのstateを監視して、変化があれば画面を更新する.
         viewModel.$state
@@ -51,7 +49,7 @@ final class GitHubDetailViewController: UIViewController, GitHubItemsRecipient {
             .store(in: &cancelables)
 
         Task {
-            await viewModel.onAppear(item)
+            await viewModel.onAppear(gitHubItem)
         }
     }
 
