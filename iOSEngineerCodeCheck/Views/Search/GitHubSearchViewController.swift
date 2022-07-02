@@ -30,9 +30,7 @@ final class GitHubSearchViewController: UITableViewController {
         super.viewDidLoad()
 
         navigationItem.title = "リポジトリ検索"
-
         querySearchBar.placeholder = "GitHub-検索文字列を入力"
-        querySearchBar.delegate = self
 
         // ViewModelのstateを監視して、変化があれば画面を更新する.
         viewModel.$state
