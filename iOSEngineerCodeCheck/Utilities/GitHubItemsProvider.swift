@@ -9,9 +9,11 @@
 import Foundation
 
 /// リポジトリ一覧を提供するObjectの定義.
-protocol RepositoryListProvider: AnyObject {
+protocol GitHubItemsProvider: AnyObject {
     /// リポジトリ一覧.
-    var repositoryList: [[String: Any]] { get }
+    //var repositoryList: [[String: Any]] { get }
+    var gitHubItems: [GitHubItem] { get }
     /// 選択中のリポジトリ.
-    var selectedRepository: [String: Any]? { get }
+    //var selectedRepository: [String: Any]? { get }
+    var selectedGitHubItem: GitHubItem? { get }
 }

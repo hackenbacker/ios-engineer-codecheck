@@ -1,5 +1,5 @@
 //
-//  RepositoryListRecipient.swift
+//  GitHubItemsRecipient.swift
 //  iOSEngineerCodeCheck
 //
 //  Created by Toshio Nakao on 2022/06/30.
@@ -9,7 +9,7 @@
 import Foundation
 
 /// リポジトリ一覧を使用するObjectの定義.
-protocol RepositoryListRecipient: AnyObject {
+protocol GitHubItemsRecipient: AnyObject {
     /// リポジトリ一覧を提供するObject.
-    var repositoryListProvider: RepositoryListProvider? { get set }
+    var provider: GitHubItemsProvider? { get set }
 }
