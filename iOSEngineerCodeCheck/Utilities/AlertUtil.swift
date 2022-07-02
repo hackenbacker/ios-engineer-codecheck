@@ -10,7 +10,7 @@ import UIKit
 
 /// アラート表示用のユーティリティ.
 final class AlertUtil {
-    
+
     private init() {} // prevent instantiation.
 
     /// Errorオブジェクトからアラートを表示する.
