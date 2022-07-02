@@ -94,6 +94,7 @@ final class GitHubSearchViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // 詳細画面へ遷移する
+        querySearchBar.resignFirstResponder()
         selectedGitHubItem = gitHubItems[indexPath.row]
         performSegue(withIdentifier: "Detail", sender: self)
     }
@@ -106,6 +107,8 @@ extension GitHubSearchViewController: UISearchBarDelegate {
         guard let query = searchBar.text, !query.isEmpty else {
             return
         }
+
+        searchBar.resignFirstResponder()
 
         Task {
             await viewModel.onSearchButtonTapped(query)
