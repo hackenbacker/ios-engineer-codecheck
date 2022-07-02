@@ -16,7 +16,7 @@ struct GitHubAPIClient {
     /// - Returns: Search result.
     func searchRepositories(with query: String) async throws -> [GitHubItem] {
 
-        let urlString = "https://api.github.com/search/repositories?q=\(query)"
+        let urlString = "https://api.github.com/search/repositories?q=\(query)&per_page=50"
         guard let url = URL(string: urlString) else {
             throw GitHubAppError.invalidInput
         }
