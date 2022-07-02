@@ -17,7 +17,7 @@ protocol GitHubAvatarRepository {
 }
 
 /// Watchers関連のRepository.
-protocol GitHunWatchersRepository {
+protocol GitHubWatchersRepository {
     /// Watch数を取得する.
     /// - Parameter item: GitHub item.
     /// - Returns: Watch数.
@@ -25,7 +25,7 @@ protocol GitHunWatchersRepository {
 }
 
 /// 詳細画面用Repository.
-protocol GitHubDetailRepository: GitHubAvatarRepository, GitHunWatchersRepository {}
+protocol GitHubDetailRepository: GitHubAvatarRepository, GitHubWatchersRepository {}
 
 /// GitHubDetailRepositoryの実装.
 struct GitHubDetailDataRepository: GitHubDetailRepository {
