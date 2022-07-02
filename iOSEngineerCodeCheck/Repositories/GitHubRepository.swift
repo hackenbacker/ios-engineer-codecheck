@@ -1,5 +1,5 @@
 //
-//  DataRepository.swift
+//  GitHubRepository.swift
 //  iOSEngineerCodeCheck
 //
 //  Created by Toshio Nakao on 2022/07/01.

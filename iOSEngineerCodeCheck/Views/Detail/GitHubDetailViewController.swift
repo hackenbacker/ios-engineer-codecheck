@@ -36,10 +36,9 @@ final class GitHubDetailViewController: UIViewController, GitHubItemRecipient {
         } else {
             languageLabel.text = ""
         }
-        starsCountLabel.text    = "\(gitHubItem?.stargazersCount ?? 0) stars"
-        watchersCountLabel.text = "\(gitHubItem?.watchersCount ?? 0) watchers"
-        forksCountLabel.text    = "\(gitHubItem?.forksCount ?? 0) forks"
-        issuesCountLabel.text   = "\(gitHubItem?.openIssuesCount ?? 0) open issues"
+        starsCountLabel.text  = "\(gitHubItem?.stargazersCount ?? 0) stars"
+        forksCountLabel.text  = "\(gitHubItem?.forksCount ?? 0) forks"
+        issuesCountLabel.text = "\(gitHubItem?.openIssuesCount ?? 0) open issues"
 
         // ViewModelのstateを監視して、変化があれば画面を更新する.
         viewModel.$state
@@ -56,35 +55,23 @@ final class GitHubDetailViewController: UIViewController, GitHubItemRecipient {
     /// Called when state of this view has been changed.
     /// - Parameter state: State of this view.
     private func viewStateDidChange(_ state: GitHubDetailViewState) {
-        showAvatarImage(state)
+        refreshView(state)
     }
 
-    /// Shows an avatar image.
+    /// Refreshes this view.
     /// - Parameter state: State of this view.
-    private func showAvatarImage(_ state: GitHubDetailViewState) {
-
-        let placeholderImage = UIImage(systemName: "person.crop.circle.badge.questionmark")!
-                                .withTintColor(.systemGray5, renderingMode: .alwaysOriginal)
-
+    private func refreshView(_ state: GitHubDetailViewState) {
         switch state {
-        case .idle:
-            NSLog("\(#function): Idle")
-            avatarImageView.image = placeholderImage
-        case .loading:
-            NSLog("\(#function): Downloading now...")
-            avatarImageView.image = placeholderImage
-        case .loaded(let data):
-            if let data = data {
-                NSLog("\(#function): Done")
-                avatarImageView.image = UIImage(data: data)
-            } else {
-                NSLog("\(#function): No image")
-                avatarImageView.image = placeholderImage
-            }
-        case .failed:
-            NSLog("\(#function): Failed to get image")
-            // エラーでもplacehplder画像の表示にとどめる.
-            avatarImageView.image = placeholderImage
+        case .loaded(let (data, count)):
+            avatarImageView.image   = UIImage(data: data)
+            watchersCountLabel.text = "\(count) watchers"
+        case .idle, .loading, .failed:
+            let placeholderImage = UIImage(systemName: "person.crop.circle.badge.questionmark")!
+                                    .withTintColor(.systemGray5, renderingMode: .alwaysOriginal)
+            let placeholderText  = "- watchers"
+
+            avatarImageView.image   = placeholderImage
+            watchersCountLabel.text = placeholderText
         }
     }
 }

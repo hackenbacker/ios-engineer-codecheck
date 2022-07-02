@@ -15,15 +15,16 @@ struct SearchRepositoriesResponse: Codable {
 }
 
 /// Representation of an element of "items".
+/// Note: "watchers_count"は廃止になった.
 struct GitHubItem: Codable, Identifiable {
-    var id:              Int
-    var fullName:        String
-    var language:        String?
-    var owner:           Owner?
-    var stargazersCount: Int
-    var watchersCount:   Int
-    var forksCount:      Int
-    var openIssuesCount: Int
+    var id:               Int
+    var fullName:         String
+    var language:         String?
+    var owner:            Owner?
+    var stargazersCount:  Int
+    var forksCount:       Int
+    var openIssuesCount:  Int
+    var url:              String
 }
 
 extension GitHubItem: Equatable {
