@@ -13,7 +13,6 @@ final class GitHubSearchUITest: XCTestCase {
 
     override func setUpWithError() throws {
         continueAfterFailure = false
-        continueAfterFailure = true
     }
 
     /// NavigationBarのタイトルを確認する.
