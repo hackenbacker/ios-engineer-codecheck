@@ -41,7 +41,7 @@ final class GitHubDetailViewModelTests: XCTestCase {
             )
         )
 
-        await viewModel.onAppear(GitHubItem.mock)
+        await viewModel.onAppear(GitHubItem.mock1)
 
         switch viewModel.state {
         case .loaded(let (data, count)):
@@ -61,7 +61,7 @@ final class GitHubDetailViewModelTests: XCTestCase {
             )
         )
 
-        await viewModel.onAppear(GitHubItem.mock)
+        await viewModel.onAppear(GitHubItem.mock1)
 
         switch viewModel.state {
         case .failed(let error):

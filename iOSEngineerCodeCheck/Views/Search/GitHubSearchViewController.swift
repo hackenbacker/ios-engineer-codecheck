@@ -38,10 +38,6 @@ final class GitHubSearchViewController: UITableViewController {
                 self?.viewStateDidChange(state)
             }
             .store(in: &cancelables)
-
-        Task {
-            await viewModel.onAppear()
-        }
     }
 
     /// Called when state of this view has been changed.

@@ -26,11 +26,6 @@ final class GitHubSearchViewModel: ObservableObject {
        self.dataRepository = dataRepository
     }
 
-    /// 画面が表示されたときの処理.
-    func onAppear() async {
-        // nothing to do.
-    }
-
     /// 検索ボタンが押されたときの処理.
     func onSearchButtonTapped(_ query: String) async {
         await searchGitHub(with: query)
