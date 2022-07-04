@@ -23,7 +23,7 @@ final class GitHubDetailViewController: UIViewController, GitHubItemRecipient {
     private var viewModel = GitHubDetailViewModel()
     private var cancelables = Set<AnyCancellable>()
 
-    /// GitHub item (リポジトリ一情報 ).
+    /// GitHub item (リポジトリ一情報).
     var gitHubItem: GitHubItem?
 
     override func viewDidLoad() {

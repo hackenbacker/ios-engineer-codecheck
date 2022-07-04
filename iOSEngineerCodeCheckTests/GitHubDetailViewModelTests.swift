@@ -9,7 +9,7 @@
 import XCTest
 @testable import iOSEngineerCodeCheck
 
-/// 詳細画面用ViewModelのテスト
+/// 詳細画面用ViewModelのテスト.
 @MainActor
 final class GitHubDetailViewModelTests: XCTestCase {
 
