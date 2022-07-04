@@ -2,8 +2,8 @@
 //  iOSEngineerCodeCheckUITests.swift
 //  iOSEngineerCodeCheckUITests
 //
-//  Created by Toshio Nakao on 2022/07/04.
-//  Copyright © 2022 YUMEMI Inc. All rights reserved.
+//  Created by 史 翔新 on 2020/04/20.
+//  Copyright © 2020 YUMEMI Inc. All rights reserved.
 //
 
 import XCTest
