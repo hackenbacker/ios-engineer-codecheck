@@ -10,6 +10,5 @@ import Foundation
 
 /// Representation of "owner"
 struct Owner: Codable {
-    var login:     String
     var avatarUrl: String
 }

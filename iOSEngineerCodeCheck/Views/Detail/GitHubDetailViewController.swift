@@ -29,6 +29,8 @@ final class GitHubDetailViewController: UIViewController, GitHubItemRecipient {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        navigationItem.title = "詳細"
+
         fullNameLabel.text = gitHubItem?.fullName
 
         if let language = gitHubItem?.language {
