@@ -9,5 +9,6 @@
 import Foundation
 
 extension Owner {
+    /// Mock用Owner.
     static let mock = Owner(avatarUrl: "")
 }

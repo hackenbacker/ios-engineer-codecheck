@@ -21,7 +21,7 @@ struct GitHubAPIClient {
             throw GitHubAppError.invalidInput
         }
 
-        let searched = try await make(SearchRepositoriesResponse.self, from: url)
+        let searched = try await receive(SearchRepositoriesResponse.self, from: url)
         return searched.items
     }
 
@@ -35,16 +35,16 @@ struct GitHubAPIClient {
             throw URLError(.badURL)
         }
 
-        let repo = try await make(GetARepositoryResponse.self, from: url)
+        let repo = try await receive(GetARepositoryResponse.self, from: url)
         return repo.subscribersCount
     }
 
-    ///  Returns a value of the specified type from the URL.
+    /// Receives the specified type of data from the URL.
     /// - Parameters:
     ///   - type: The type of the value to get.
-    ///   - url:        The URL.
+    ///   - url:  The URL.
     /// - Returns: A value of the specified type.
-    private func make<T: Decodable>(_ type: T.Type, from url: URL) async throws -> T {
+    private func receive<T: Decodable>(_ type: T.Type, from url: URL) async throws -> T {
 
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = "GET"

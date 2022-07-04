@@ -39,7 +39,7 @@ final class iOSEngineerCodeCheckUITests: XCTestCase {
             searchPage.app.launch()
         }
 
-        XCTContext.runActivity(named: "Search with \(word)") { _ in
+        XCTContext.runActivity(named: "Search by \(word)") { _ in
             XCTAssertTrue(searchPage
                             .typeSearchWord(word)
                             .tapSearchButton()

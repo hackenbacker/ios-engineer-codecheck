@@ -9,5 +9,6 @@
 import Foundation
 
 extension GetARepositoryResponse {
+    /// Mock用GetARepositoryResponse.
     static let mock = GetARepositoryResponse(subscribersCount: 9999)
 }

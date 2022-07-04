@@ -9,7 +9,7 @@
 import XCTest
 @testable import iOSEngineerCodeCheck
 
-/// 検索画面用ViewModelのテスト
+/// 検索画面用ViewModelのテスト.
 @MainActor
 final class GitHubSearchViewModelTests: XCTestCase {
 
